@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
-namespace Atg.Utils.Native
+namespace AtgDev.Utils.Native
 {
     abstract class DllWrapperBase
     {
