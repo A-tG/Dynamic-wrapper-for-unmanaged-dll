@@ -7,17 +7,17 @@ namespace AtgDev.Utils.Native
     {
         // To add a procedure from the DLL declare in a same manner:
         //
-        //      private delegate RETURN_TYPE SAME_NAME_AS_DLL_PROCEDURE(PROC_PARAMETERS);
-        //      private SAME_NAME_AS_DLL_PROCEDURE fieldName;
-        //      public RETURN_TYPE functionName(parameters)
+        //      private delegate int32 ProcedureNameFromDLL(IntPtr someParam1, in int32 someParam2);
+        //      private ProcedureNameFromDLL fieldName;
+        //      public int32 functionName(IntPtr someParam1, in int32 someParam2)
         //      {
-        //              //convert parameters to PROC_PARAMETERS if needed
-        //              return fieldName(PROC_PARAMETERS);
+        //              // do something with parameters here if needed
+        //              return fieldName(IntPtr someParam1, in int32 someParam2);
         //      }
         //
         // And initialize "fieldName" somewhere (for example in constructor):
         //
-        //      fieldName = GetReadyDelegate<SAME_NAME_AS_DLL_PROCEDURE>();
+        //      fieldName = GetReadyDelegate<ProcedureNameFromDLL>();
 
         private IntPtr m_dllHandle;
 
