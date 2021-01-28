@@ -27,7 +27,7 @@ namespace Atg.Utils.Native
             m_dllHandle = DllLoader.LoadLibrary(dllPath);
             if (m_dllHandle == IntPtr.Zero)
             {
-                throw new DllNotFoundException($"Cannot load remote API dll: {dllPath}");
+                throw new DllNotFoundException($"Cannot load dll: {dllPath}");
             }
         }
 
