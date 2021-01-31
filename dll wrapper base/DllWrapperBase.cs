@@ -12,7 +12,7 @@ namespace AtgDev.Utils.Native
         //      public int32 functionName(IntPtr someParam1, in int32 someParam2)
         //      {
         //              // do something with parameters here if needed
-        //              return fieldName(IntPtr someParam1, in int32 someParam2);
+        //              return fieldName(someParam1, in someParam2);
         //      }
         //
         // And initialize "fieldName" somewhere (for example in constructor):
