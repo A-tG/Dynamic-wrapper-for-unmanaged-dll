@@ -41,13 +41,31 @@ namespace AtgDev.Utils.Native
         {
             // dirty hack to avoid repeating writing procedure name in generic type and function parameter
             var procName = typeof(T).Name;
+            IntPtr methodHandle = GetMethodHandle(procName);
+            return (T)(object)Marshal.GetDelegateForFunctionPointer(methodHandle, typeof(T));
+        }
+
+        /// <summary>
+        ///     Get delegate from DLL's procedure
+        /// </summary>
+        /// <typeparam name="T">Delegate type's name</typeparam>
+        /// <param name="procName">DLL's procedure name</param>
+        /// <exception cref="EntryPointNotFoundException">Thrown when cannot load procedure by name</exception>
+        protected T GetReadyDelegate<T>(string procName)
+        {
+            IntPtr methodHandle = GetMethodHandle(procName);
+            return (T)(object)Marshal.GetDelegateForFunctionPointer(methodHandle, typeof(T));
+        }
+
+        private IntPtr GetMethodHandle(string procName)
+        {
             IntPtr methodHandle = DllLoader.GetProcAddress(m_dllHandle, procName);
             if (methodHandle == IntPtr.Zero)
             {
                 ReleaseHandle();
                 throw new EntryPointNotFoundException($"Error getting address of dll's interface: {procName}");
             }
-            return (T)(object)Marshal.GetDelegateForFunctionPointer(methodHandle, typeof(T));
+            return methodHandle;
         }
 
         private void ReleaseHandle()
