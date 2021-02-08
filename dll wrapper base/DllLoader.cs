@@ -6,12 +6,27 @@ namespace AtgDev.Utils.Native
     static class DllLoader
     {
         [DllImport("kernel32.dll")]
-        public static extern IntPtr LoadLibrary(string dllToLoad);
+        private static extern IntPtr LoadLibrary(string dllToLoad);
 
         [DllImport("kernel32.dll")]
-        public static extern IntPtr GetProcAddress(IntPtr hModule, string procedureName);
+        private static extern IntPtr GetProcAddress(IntPtr hModule, string procedureName);
 
         [DllImport("kernel32.dll")]
-        public static extern bool FreeLibrary(IntPtr hModule);
+        private static extern bool FreeLibrary(IntPtr hModule);
+
+        public static IntPtr Load(string dllToLoad)
+        {
+            return LoadLibrary(dllToLoad);
+        }
+
+        public static IntPtr GetProcedureAddress(IntPtr dllHandle, string procedureName)
+        {
+            return GetProcAddress(dllHandle, procedureName);
+        }
+
+        public static void Free(IntPtr dllHandle)
+        {
+            FreeLibrary(dllHandle);
+        }
     }
 }

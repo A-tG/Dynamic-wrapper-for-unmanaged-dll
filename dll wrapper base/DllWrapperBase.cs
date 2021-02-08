@@ -24,7 +24,7 @@ namespace AtgDev.Utils.Native
         /// <exception cref="DllNotFoundException">Thrown when cannot load DLL by path</exception>
         public DllWrapperBase(string dllPath)
         {
-            m_dllHandle = DllLoader.LoadLibrary(dllPath);
+            m_dllHandle = DllLoader.Load(dllPath);
             if (m_dllHandle == IntPtr.Zero)
             {
                 throw new DllNotFoundException($"Cannot load dll: {dllPath}");
@@ -59,7 +59,7 @@ namespace AtgDev.Utils.Native
 
         private IntPtr GetMethodHandle(string procName)
         {
-            IntPtr methodHandle = DllLoader.GetProcAddress(m_dllHandle, procName);
+            IntPtr methodHandle = DllLoader.GetProcedureAddress(m_dllHandle, procName);
             if (methodHandle == IntPtr.Zero)
             {
                 ReleaseHandle();
@@ -72,7 +72,7 @@ namespace AtgDev.Utils.Native
         {
             if (m_dllHandle != IntPtr.Zero)
             {
-                DllLoader.FreeLibrary(m_dllHandle);
+                DllLoader.Free(m_dllHandle);
                 m_dllHandle = IntPtr.Zero;
             }
         }
