@@ -41,8 +41,7 @@ namespace AtgDev.Utils.Native
         {
             // dirty hack to avoid repeating writing procedure name in generic type and function parameter
             var procName = typeof(T).Name;
-            IntPtr methodHandle = GetMethodHandle(procName);
-            return (T)(object)Marshal.GetDelegateForFunctionPointer(methodHandle, typeof(T));
+            return GetReadyDelegate<T>(procName);
         }
 
         /// <summary>
