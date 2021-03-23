@@ -3,6 +3,25 @@ using System.Runtime.InteropServices;
 
 namespace AtgDev.Utils.Native
 {
+#if NET5_0_OR_GREATER
+    static class DllLoader
+    {
+        public static IntPtr Load(string dllToLoad)
+        {
+            return NativeLibrary.Load(dllToLoad);
+        }
+
+        public static IntPtr GetProcedureAddress(IntPtr dllHandle, string procedureName)
+        {
+            return NativeLibrary.GetExport(dllHandle, procedureName);
+        }
+
+        public static void Free(IntPtr dllHandle)
+        {
+            NativeLibrary.Free(dllHandle);
+        }
+    }
+#else
     static class DllLoader
     {
         [DllImport("kernel32.dll")]
@@ -29,4 +48,5 @@ namespace AtgDev.Utils.Native
             FreeLibrary(dllHandle);
         }
     }
+#endif
 }
