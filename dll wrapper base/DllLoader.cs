@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 
 namespace AtgDev.Utils.Native
 {
-#if NET5_0_OR_GREATER
+#if (NET5_0_OR_GREATER || NETCOREAPP3_0_OR_GREATER)
     static class DllLoader
     {
         public static IntPtr Load(string dllToLoad)
