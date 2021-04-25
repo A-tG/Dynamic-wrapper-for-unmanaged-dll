@@ -35,6 +35,7 @@ namespace AtgDev.Utils.Native
         ///     Get delegate from DLL's procedure.
         /// </summary>
         /// <typeparam name="T">Should match with DLL's procedure name</typeparam>
+        /// <param name="del">Variable receiving the delegate</param>
         /// <remarks>Generic's name T should match with DLL's procedure name</remarks>
         protected bool TryGetReadyDelegate<T>(ref T del)
         {
@@ -47,6 +48,7 @@ namespace AtgDev.Utils.Native
         ///     Get delegate from DLL's procedure
         /// </summary>
         /// <typeparam name="T">Delegate type's name</typeparam>
+        /// <param name="del">Variable receiving the delegate</param>
         /// <param name="procName">DLL's procedure name</param>
         protected bool TryGetReadyDelegate<T>(ref T del, string procName)
         {
