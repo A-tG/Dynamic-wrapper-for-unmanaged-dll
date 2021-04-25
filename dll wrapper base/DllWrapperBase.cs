@@ -32,6 +32,33 @@ namespace AtgDev.Utils.Native
         }
 
         /// <summary>
+        ///     Get delegate from DLL's procedure.
+        /// </summary>
+        /// <typeparam name="T">Should match with DLL's procedure name</typeparam>
+        /// <remarks>Generic's name T should match with DLL's procedure name</remarks>
+        protected bool TryGetReadyDelegate<T>(ref T del)
+        {
+            // dirty hack to avoid repeating writing procedure name in generic type and function parameter
+            var procName = typeof(T).Name;
+            return TryGetReadyDelegate<T>(ref del, procName);
+        }
+
+        /// <summary>
+        ///     Get delegate from DLL's procedure
+        /// </summary>
+        /// <typeparam name="T">Delegate type's name</typeparam>
+        /// <param name="procName">DLL's procedure name</param>
+        protected bool TryGetReadyDelegate<T>(ref T del, string procName)
+        {
+            bool isHandleReceived = TryGetMethodHandle(procName, out IntPtr methodHandle);
+            if (isHandleReceived)
+            {
+                del = (T)(object)Marshal.GetDelegateForFunctionPointer(methodHandle, typeof(T));
+            }
+            return isHandleReceived;
+        }
+
+        /// <summary>
         ///     Get delegate from DLL's procedure
         /// </summary>
         /// <typeparam name="T">Should match with DLL's procedure name</typeparam>
@@ -56,10 +83,16 @@ namespace AtgDev.Utils.Native
             return (T)(object)Marshal.GetDelegateForFunctionPointer(methodHandle, typeof(T));
         }
 
+        private bool TryGetMethodHandle(string procName, out IntPtr methodHandle)
+        {
+            methodHandle = DllLoader.GetProcedureAddress(m_dllHandle, procName);
+            return methodHandle != IntPtr.Zero;
+        }
+
         private IntPtr GetMethodHandle(string procName)
         {
-            IntPtr methodHandle = DllLoader.GetProcedureAddress(m_dllHandle, procName);
-            if (methodHandle == IntPtr.Zero)
+            bool isHandleReceived = TryGetMethodHandle(procName, out IntPtr methodHandle);
+            if (!isHandleReceived)
             {
                 ReleaseHandle();
                 throw new EntryPointNotFoundException($"Error getting address of dll's interface: {procName}");
