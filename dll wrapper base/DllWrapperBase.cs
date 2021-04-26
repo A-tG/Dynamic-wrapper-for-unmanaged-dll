@@ -5,20 +5,6 @@ namespace AtgDev.Utils.Native
 {
     abstract class DllWrapperBase
     {
-        // To add a procedure from the DLL declare in a same manner:
-        //
-        //      private delegate int32 ProcedureNameFromDLL(IntPtr someParam1, in int32 someParam2);
-        //      private ProcedureNameFromDLL fieldName;
-        //      public int32 functionName(IntPtr someParam1, in int32 someParam2)
-        //      {
-        //              // do something with parameters here if needed
-        //              return fieldName(someParam1, in someParam2);
-        //      }
-        //
-        // And initialize "fieldName" somewhere (for example in constructor):
-        //
-        //      fieldName = GetReadyDelegate<ProcedureNameFromDLL>();
-
         private IntPtr m_dllHandle;
 
         /// <exception cref="DllNotFoundException">Thrown when cannot load DLL by path</exception>
