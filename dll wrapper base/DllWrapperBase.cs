@@ -71,6 +71,32 @@ namespace AtgDev.Utils.Native
             return (T)(object)Marshal.GetDelegateForFunctionPointer(methodHandle, typeof(T));
         }
 
+        /// <summary>
+        ///     Get delegate from DLL's procedure
+        /// </summary>
+        /// <typeparam name="T">Should match with DLL's procedure name</typeparam>
+        /// <param name="del">Variable receiving the delegate</param>
+        /// <remarks>Generic's name T should match with DLL's procedure name</remarks>
+        /// <exception cref="EntryPointNotFoundException">Thrown when cannot load procedure by name</exception>
+        protected void GetReadyDelegate<T>(ref T del)
+        {
+            // dirty hack to avoid repeating writing procedure name in generic type and function parameter
+            var procName = typeof(T).Name;
+            del = GetReadyDelegate<T>(procName);
+        }
+
+        /// <summary>
+        ///     Get delegate from DLL's procedure
+        /// </summary>
+        /// <typeparam name="T">Should match with DLL's procedure name</typeparam>
+        /// <param name="del">Variable receiving the delegate</param>
+        /// <param name="procName">DLL's procedure name</param>
+        /// <exception cref="EntryPointNotFoundException">Thrown when cannot load procedure by name</exception>
+        protected void GetReadyDelegate<T>(ref T del, string procName)
+        {
+            del = GetReadyDelegate<T>(procName);
+        }
+
         private bool TryGetMethodHandle(string procName, out IntPtr methodHandle)
         {
             methodHandle = DllLoader.GetProcedureAddress(m_dllHandle, procName);
