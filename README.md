@@ -28,6 +28,7 @@ or
 
    // And initialize "myFunc" somewhere (for example in constructor):
    GetReadyDelegate(ref myfunc, "ProcedureNameFromDLL");
+```
 or
 ```csharp
    private delegate int ProcedureNameFromDLL(IntPtr someParam1, ref int someParam2);
