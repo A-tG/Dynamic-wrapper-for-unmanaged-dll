@@ -42,7 +42,7 @@ or
 
    // And initialize "myFunc" somewhere (for example in constructor),
    // TryGetReadyDelegate() will not throw exception if procedure is not found:
-   bool isProcReceived = TryGetReadyDelegate<ProcedureNameFromDLL>(ref myFunc);
+   bool isProcReceived = TryGetReadyDelegate(ref myFunc);
 ```
 or
 ```csharp
@@ -57,5 +57,5 @@ or
 
    // And initialize "myFunc" somewhere (for example in constructor),
    // TryGetReadyDelegate() will not throw exception if procedure is not found:
-   bool isProcReceived = TryGetReadyDelegate<myNameForDelegate>(ref myFunc, "ProcedureNameFromDLL");
+   bool isProcReceived = TryGetReadyDelegate(ref myFunc, "ProcedureNameFromDLL");
 ```
