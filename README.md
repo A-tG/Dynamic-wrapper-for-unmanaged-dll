@@ -3,7 +3,7 @@ Visual Studio's C# [**Shared Project**](https://github.com/A-tG/Voicemeeter-Remo
  
 Abstract (base) class, requires implementation. [Example (partial class)](https://github.com/A-tG/Voicemeeter-Remote-API-dll-dynamic-wrapper/blob/main/voicemeeter%20remote%20api%20wrap/RemoteApiWrapper%20partial/GetParameters.cs)
 
-### How to add procedures from the DLL:
+## How to add procedures from the DLL:
 ```csharp
    private delegate int ProcedureNameFromDLL(IntPtr someParam1, ref int someParam2);
    private ProcedureNameFromDLL myFunc;
@@ -29,7 +29,7 @@ or
    // And initialize "myFunc" somewhere (for example in constructor):
    myFunc = GetReadyDelegate<myNameForDelegate>("ProcedureNameFromDLL");
 ```
-### To achieve compatibility with different versions of DLL:
+## To achieve compatibility with different versions of DLL:
 ```csharp
    private delegate int ProcedureNameFromDLL(IntPtr someParam1, ref int someParam2);
    private ProcedureNameFromDLL myFunc;
