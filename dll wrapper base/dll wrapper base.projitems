@@ -10,6 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)DllLoader.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)DllWrapperBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DllWrapperBase partial\IDisposable.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DllWrapperBase partial\DllWrapperBase.cs" />
   </ItemGroup>
 </Project>
