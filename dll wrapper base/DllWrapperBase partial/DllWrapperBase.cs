@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 
 namespace AtgDev.Utils.Native
 {
-    abstract partial class DllWrapperBase
+    public abstract partial class DllWrapperBase
     {
         private IntPtr m_dllHandle;
 
