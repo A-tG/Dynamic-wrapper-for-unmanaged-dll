@@ -8,12 +8,22 @@ namespace AtgDev.Utils.Native
     {
         public static IntPtr Load(string dllToLoad)
         {
-            return NativeLibrary.Load(dllToLoad);
+            IntPtr result = IntPtr.Zero;
+            try
+            {
+                result = NativeLibrary.Load(dllToLoad);
+            } catch {}
+            return result;
         }
 
         public static IntPtr GetProcedureAddress(IntPtr dllHandle, string procedureName)
         {
-            return NativeLibrary.GetExport(dllHandle, procedureName);
+            IntPtr result = IntPtr.Zero;
+            try
+            {
+                result = NativeLibrary.GetExport(dllHandle, procedureName);
+            } catch {}
+            return result;
         }
 
         public static void Free(IntPtr dllHandle)
