@@ -6,14 +6,16 @@ namespace AtgDev.Utils.Native
     public abstract partial class DllWrapperBase
     {
         private IntPtr m_dllHandle;
+        private string m_dllPath;
 
         /// <exception cref="DllNotFoundException">Thrown when cannot load DLL by path</exception>
         public DllWrapperBase(string dllPath)
         {
             m_dllHandle = DllLoader.Load(dllPath);
+            m_dllPath = dllPath;
             if (m_dllHandle == IntPtr.Zero)
             {
-                throw new DllNotFoundException($"Cannot load dll: {dllPath}");
+                throw new DllNotFoundException($@"Cannot load dll ""{dllPath}""");
             }
         }
 
@@ -109,7 +111,7 @@ namespace AtgDev.Utils.Native
             if (!isHandleReceived)
             {
                 ReleaseHandle();
-                throw new EntryPointNotFoundException($"Error getting address of dll's interface: {procName}");
+                throw new EntryPointNotFoundException($@"Error getting address of interface ""{procName}"" in ""{m_dllPath}""");
             }
             return methodHandle;
         }
