@@ -45,11 +45,7 @@ namespace AtgDev.Utils.Native
             bool isHandleReceived = TryGetMethodHandle(procName, out IntPtr methodHandle);
             if (isHandleReceived)
             {
-#if NET5_0_OR_GREATER || NETCOREAPP1_0_OR_GREATER || NET452_OR_GREATER || NETSTANDARD1_2_OR_GREATER
-                del = Marshal.GetDelegateForFunctionPointer<T>(methodHandle);
-#else
-                del = (T)(object)Marshal.GetDelegateForFunctionPointer(methodHandle, typeof(T));
-#endif
+                del = GetReadyDelegate<T>(methodHandle);
             }
             return isHandleReceived;
         }
@@ -80,7 +76,7 @@ namespace AtgDev.Utils.Native
         protected T GetReadyDelegate<T>(string procName)
         {
             IntPtr methodHandle = GetMethodHandle(procName);
-            return (T)(object)Marshal.GetDelegateForFunctionPointer(methodHandle, typeof(T));
+            return GetReadyDelegate<T>(methodHandle);
         }
 
         /// <summary>
@@ -111,6 +107,15 @@ namespace AtgDev.Utils.Native
         protected void GetReadyDelegate<T>(ref T del, string procName)
         {
             del = GetReadyDelegate<T>(procName);
+        }
+
+        private T GetReadyDelegate<T>(IntPtr handle)
+        {
+#if NET5_0_OR_GREATER || NETCOREAPP1_0_OR_GREATER || NET452_OR_GREATER || NETSTANDARD1_2_OR_GREATER
+            return Marshal.GetDelegateForFunctionPointer<T>(handle);
+#else
+            return (T)(object)Marshal.GetDelegateForFunctionPointer(handle, typeof(T));
+#endif
         }
 
         private bool TryGetMethodHandle(string procName, out IntPtr methodHandle)
