@@ -1,4 +1,6 @@
 # Dynamic wrapper for unmanaged dll
+[Nuget package](https://www.nuget.org/packages/a-tg.UnmanagedLibWrap/)
+
 Visual Studio's C# [**Shared Project**](https://github.com/A-tG/Voicemeeter-Remote-API-dll-dynamic-wrapper/wiki/Useful-Info#how-to-useadd-a-visual-studio-shared-project). Helps to dynamically load an unmanaged library at runtime. 
 
 Designed to work on Windows, but should be crossplatform with .NET 5.0
@@ -88,3 +90,6 @@ or
    // TryGetReadyDelegate() will not throw exception if procedure is not found:
    bool isProcReceived = TryGetReadyDelegate(ref myFunc, "ProcedureNameFromDLL");
 ```
+
+## Do you like my projects? Donate
+[![Paypal Logo](https://www.paypalobjects.com/webstatic/paypalme/images/pp_logo_small.png)](https://www.paypal.me/atgDeveloperMusician/5)
