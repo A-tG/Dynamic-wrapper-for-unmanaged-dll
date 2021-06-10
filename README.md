@@ -1,5 +1,5 @@
 # Dynamic wrapper for unmanaged dll
-[Nuget package](https://www.nuget.org/packages/a-tg.UnmanagedLibWrap/)
+[![nuget](https://img.shields.io/nuget/v/a-tg.UnmanagedLibWrap)](https://www.nuget.org/packages/a-tg.UnmanagedLibWrap)
 
 Visual Studio's C# [**Shared Project**](https://github.com/A-tG/Voicemeeter-Remote-API-dll-dynamic-wrapper/wiki/Useful-Info#how-to-useadd-a-visual-studio-shared-project). Helps to dynamically load an unmanaged library at runtime. 
 
