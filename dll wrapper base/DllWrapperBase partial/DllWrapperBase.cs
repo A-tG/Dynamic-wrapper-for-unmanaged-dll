@@ -19,13 +19,7 @@ namespace AtgDev.Utils.Native
             }
         }
 
-        /// <summary>
-        ///     Get delegate from DLL's procedure.
-        /// </summary>
-        /// <typeparam name="T">Should match with DLL's procedure name</typeparam>
-        /// <param name="del">Variable receiving the delegate</param>
-        /// <remarks>Generic's name T should match with DLL's procedure name</remarks>
-        /// <exception cref="ArgumentException">The T parameter is not a delegate or is generic.</exception>
+        /// <inheritdoc cref="GetReadyDelegate{T}(ref T, string)"/>
         protected bool TryGetReadyDelegate<T>(ref T del)
         {
             // dirty hack to avoid repeating writing procedure name in generic type and function parameter
@@ -33,13 +27,7 @@ namespace AtgDev.Utils.Native
             return TryGetReadyDelegate<T>(ref del, procName);
         }
 
-        /// <summary>
-        ///     Get delegate from DLL's procedure
-        /// </summary>
-        /// <typeparam name="T">Delegate type's name</typeparam>
-        /// <param name="del">Variable receiving the delegate</param>
-        /// <param name="procName">DLL's procedure name</param>
-        /// <exception cref="ArgumentException">The T parameter is not a delegate or is generic.</exception>
+        /// <inheritdoc cref="GetReadyDelegate{T}(ref T, string)"/>
         protected bool TryGetReadyDelegate<T>(ref T del, string procName)
         {
             bool isHandleReceived = TryGetMethodHandle(procName, out IntPtr methodHandle);
@@ -50,14 +38,7 @@ namespace AtgDev.Utils.Native
             return isHandleReceived;
         }
 
-        /// <summary>
-        ///     Get delegate from DLL's procedure
-        /// </summary>
-        /// <typeparam name="T">Should match with DLL's procedure name</typeparam>
-        /// <remarks>Generic's name T should match with DLL's procedure name</remarks>
-        /// <exception cref="EntryPointNotFoundException">Thrown when cannot load procedure by name</exception>
-        /// <exception cref="ArgumentException"/>
-        /// <exception cref="ArgumentNullException"/>
+        /// <inheritdoc cref="GetReadyDelegate{T}(ref T, string)"/>
         protected T GetReadyDelegate<T>()
         {
             // dirty hack to avoid repeating writing procedure name in generic type and function parameter
@@ -65,29 +46,14 @@ namespace AtgDev.Utils.Native
             return GetReadyDelegate<T>(procName);
         }
 
-        /// <summary>
-        ///     Get delegate from DLL's procedure
-        /// </summary>
-        /// <typeparam name="T">Delegate type's name</typeparam>
-        /// <param name="procName">DLL's procedure name</param>
-        /// <exception cref="EntryPointNotFoundException">Thrown when cannot load procedure by name</exception>
-        /// <exception cref="ArgumentException"/>
-        /// <exception cref="ArgumentNullException"/>
+        /// <inheritdoc cref="GetReadyDelegate{T}(ref T, string)"/>
         protected T GetReadyDelegate<T>(string procName)
         {
             IntPtr methodHandle = GetMethodHandle(procName);
             return GetReadyDelegate<T>(methodHandle);
         }
 
-        /// <summary>
-        ///     Get delegate from DLL's procedure
-        /// </summary>
-        /// <typeparam name="T">Should match with DLL's procedure name</typeparam>
-        /// <param name="del">Variable receiving the delegate</param>
-        /// <remarks>Generic's name T should match with DLL's procedure name</remarks>
-        /// <exception cref="EntryPointNotFoundException">Thrown when cannot load procedure by name</exception>
-        /// <exception cref="ArgumentException"/>
-        /// <exception cref="ArgumentNullException"/>
+        /// <inheritdoc cref="GetReadyDelegate{T}(ref T, string)"/>
         protected void GetReadyDelegate<T>(ref T del)
         {
             // dirty hack to avoid repeating writing procedure name in generic type and function parameter
@@ -101,9 +67,8 @@ namespace AtgDev.Utils.Native
         /// <typeparam name="T">Should match with DLL's procedure name</typeparam>
         /// <param name="del">Variable receiving the delegate</param>
         /// <param name="procName">DLL's procedure name</param>
-        /// <exception cref="EntryPointNotFoundException">Thrown when cannot load procedure by name</exception>
-        /// <exception cref="ArgumentException"/>
-        /// <exception cref="ArgumentNullException"/>
+        /// <inheritdoc cref="GetMethodHandle(string)" path="/exception"/>
+        /// <inheritdoc cref="Marshal.GetDelegateForFunctionPointer(IntPtr, Type)" path="/exception"/>
         protected void GetReadyDelegate<T>(ref T del, string procName)
         {
             del = GetReadyDelegate<T>(procName);
@@ -124,6 +89,8 @@ namespace AtgDev.Utils.Native
             return methodHandle != IntPtr.Zero;
         }
 
+
+        /// <exception cref="EntryPointNotFoundException">Thrown when cannot load procedure by name</exception>
         private IntPtr GetMethodHandle(string procName)
         {
             bool isHandleReceived = TryGetMethodHandle(procName, out IntPtr methodHandle);
